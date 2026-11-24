@@ -12,10 +12,6 @@ const TOPICS = [
   'ssvep',
   'quality',
   'marker',
-  'decoder',
-  'command',
-  'control',
-  'task', // control-task events (design/task-system §3 step 5)
 ];
 function targetMetric(frequencies, psd, target) {
   const signal = [],
@@ -152,14 +148,6 @@ class DeveloperBridge {
       return;
     }
     c.ws.send(JSON.stringify(event));
-  }
-  // Task events to subscribed programs; null when the interface is off.
-  publishTask(payload) {
-    if (!this.server) return null;
-    let n = 0;
-    for (const c of this.clients) if (c.auth && c.topics.has('task')) n++;
-    this.broadcast('task', payload);
-    return n;
   }
   broadcast(type, payload) {
     const event = this.envelope(type, payload);
@@ -397,16 +385,6 @@ class DeveloperBridge {
           }
       this.waves(data);
       this.sampleIndex += data.timestamps.length;
-      return;
-    }
-    // Recognition layer: per-window scores and discrete selections from the engine.
-    if (
-      ['decoder', 'decoder-calibration', 'command', 'control'].includes(data.type) &&
-      this.fresh()
-    ) {
-      const topic = ['command', 'control'].includes(data.type) ? data.type : 'decoder';
-      const { type, epoch, ...payload } = data;
-      this.broadcast(topic, { kind: type, ...payload, timestampMeaning: 'last sample of window' });
       return;
     }
     if (data.type === 'alpha' && this.fresh()) {

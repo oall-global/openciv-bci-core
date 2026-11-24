@@ -1,25 +1,9 @@
 // The interface description copied for an AI agent: everything it needs to connect to the
-// running app and react to tasks, in one Markdown text (endpoint, key, topics, tasks, code).
-function agentGuide({ endpoint, token, tasks = [], running = [] }) {
-  const on = new Set(running);
-  const taskRows = tasks.length
-    ? tasks
-        .map((t) => {
-          const states = t.states.map((s) => s.name).join('、') || '—';
-          const outs = [
-            t.outputs.interface?.enabled ? '应用接口' : '',
-            t.outputs.local?.enabled ? `本机接口 ws://127.0.0.1:${t.outputs.local.port}` : '',
-            t.outputs.http?.enabled ? `HTTP POST ${t.outputs.http.url}` : '',
-          ]
-            .filter(Boolean)
-            .join('；');
-          return `| ${t.id} | ${t.title} | ${states} | ${on.has(t.id) ? '运行中' : '未运行'} | ${outs || '未开启接口输出'} |`;
-        })
-        .join('\n')
-    : '| — | 还没有任务 | — | — | — |';
+// running app and read the live EEG, in one Markdown text (endpoint, key, topics, code).
+function agentGuide({ endpoint, token }) {
   return `# 开源文明 BCI-001 本机接口说明
 
-你可以通过下面的接口读取这台电脑上 开源文明 BCI-001 的实时脑电数据和任务事件，并据此执行操作。接口只在本机（127.0.0.1）可用。
+你可以通过下面的接口读取这台电脑上 开源文明 BCI-001 的实时脑电数据和频段特征，并写入实验标记。接口只在本机（127.0.0.1）可用。
 
 ## 连接
 
@@ -38,7 +22,7 @@ function agentGuide({ endpoint, token, tasks = [], running = [] }) {
 
 2. 订阅主题：
 \`\`\`json
-{"type":"subscribe","topics":["task","status"]}
+{"type":"subscribe","topics":["bands","status"]}
 \`\`\`
 可选字段：\`channels\`（1–16 的通道号数组，默认全部），\`ssvepFrequencyHz\`（5–36，默认 30）。返回 \`subscribed\`。再次发送 subscribe 会替换之前的订阅。
 
@@ -51,13 +35,12 @@ function agentGuide({ endpoint, token, tasks = [], running = [] }) {
 
 每条推送消息的外层格式：
 \`\`\`json
-{"schema":"neurolink.v1","type":"task","sequence":12,"streamId":"…","source":"device","emittedAtMs":1790000000000,"payload":{}}
+{"schema":"neurolink.v1","type":"bands","sequence":12,"streamId":"…","source":"device","emittedAtMs":1790000000000,"payload":{}}
 \`\`\`
 source 为 device（真实设备）或 demo（模拟数据）。
 
 | 主题 | 内容 |
 |---|---|
-| task | 任务事件（最常用，见下节） |
 | status | 设备状态：payload.status（streaming 表示正在采集），payload.valid |
 | quality | 数据是否新鲜：payload.valid，payload.reason |
 | metadata | 采样率、通道数等 |
@@ -67,7 +50,6 @@ source 为 device（真实设备）或 demo（模拟数据）。
 | alpha | 每通道 8–13 Hz 能量 |
 | ssvep | 每通道目标频率的信噪比（dB） |
 | marker | 实验标记 |
-| decoder / command / control | 识别层的中间结果 |
 
 ## 处理后的信号
 
@@ -90,36 +72,6 @@ waves：与原始脑电同步推送，每条最多 250 个采样点。
 
 通道号与电极位置（默认）：1 Fp1、2 Fp2、3 C3、4 C4、5 P7、6 P8、7 O1、8 O2、9 F7、10 F8、11 F3、12 F4、13 T7、14 T8、15 P3、16 P4。α 通常在后脑（O1、O2、P3、P4）最明显。
 
-## 任务事件（task 主题）
-
-用户在 开源文明 BCI-001 里训练的每个"任务"会识别若干种状态（例如"闭眼""睁眼"）。任务运行时，只有在任务的「模型与输出」中勾选了「应用接口」，事件才会推送到本接口。
-
-触发事件：
-\`\`\`json
-{"type":"trigger","task":"任务编号","taskName":"任务名称","state":"闭眼","kind":"enter","strength":0.82,"value":null,"t":1790000000000,"seq":1}
-\`\`\`
-- kind：enter 进入该状态（通常据此执行操作）；repeat 保持期间重复触发；exit 离开该状态；value 连续数值，此时 value 为概率。
-- strength：触发时的置信度（0–1）。
-- t：采集时间（Unix 毫秒）；seq：该任务的事件序号。
-
-实时概率（约每个识别窗口一次）：
-\`\`\`json
-{"type":"live","task":"任务编号","taskName":"任务名称","probabilities":{"闭眼":0.9,"睁眼":0.1},"t":1790000000000}
-\`\`\`
-
-## 当前任务
-
-| 编号 | 名称 | 状态 | 运行 | 已开启的输出 |
-|---|---|---|---|---|
-${taskRows}
-
-任务的启动、停止和训练都在 开源文明 BCI-001 界面中进行，本接口不能控制任务。
-
-## 其他接收方式
-
-- 本机接口：任务可以单独开一个 WebSocket 端口（ws://127.0.0.1:端口），无需密钥，连接后先收到 \`{"type":"hello"}\`，之后收到与上面相同的 trigger / live 消息。
-- HTTP：任务可以把 trigger 消息以 JSON POST 到指定地址。
-
 ## 示例（Python，需要 \`pip install websockets\`）
 
 \`\`\`python
@@ -128,14 +80,14 @@ import asyncio, json, websockets
 async def main():
     async with websockets.connect("${endpoint}") as ws:
         await ws.send(json.dumps({"type": "auth", "token": "${token}", "clientName": "AI 助手"}))
-        await ws.send(json.dumps({"type": "subscribe", "topics": ["task"]}))
+        await ws.send(json.dumps({"type": "subscribe", "topics": ["bands"], "channels": [7, 8]}))
         async for raw in ws:
             msg = json.loads(raw)
-            if msg["type"] != "task":
+            if msg["type"] != "bands":
                 continue
-            e = msg["payload"]
-            if e["type"] == "trigger" and e["kind"] == "enter":
-                print(e["taskName"], "→", e["state"], e["strength"])  # 在这里执行操作
+            for c in msg["payload"]["channels"]:
+                if c["valid"]:
+                    print(c["channel"], "α", c["bands"]["alpha"]["relativePercent"], "%")
 
 asyncio.run(main())
 \`\`\`
@@ -147,18 +99,19 @@ const WebSocket = require('ws');
 const ws = new WebSocket('${endpoint}');
 ws.on('open', () => {
   ws.send(JSON.stringify({ type: 'auth', token: '${token}', clientName: 'AI 助手' }));
-  ws.send(JSON.stringify({ type: 'subscribe', topics: ['task'] }));
+  ws.send(JSON.stringify({ type: 'subscribe', topics: ['bands'], channels: [7, 8] }));
 });
 ws.on('message', (raw) => {
   const msg = JSON.parse(raw);
-  if (msg.type === 'task' && msg.payload.type === 'trigger' && msg.payload.kind === 'enter')
-    console.log(msg.payload.taskName, '→', msg.payload.state); // 在这里执行操作
+  if (msg.type !== 'bands') return;
+  for (const c of msg.payload.channels)
+    if (c.valid) console.log(c.channel, 'α', c.bands.alpha.relativePercent, '%');
 });
 \`\`\`
 
 ## 注意
 
-- 脑电识别的是状态，会有误触发；执行有风险的操作前应设置确认步骤。
+- 频段数值描述的是信号，不能读出想法；接触不良或肌肉活动也会改变它们。
 - 接入密钥只用于本机程序，不要发送到其他服务。
 `;
 }

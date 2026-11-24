@@ -13,7 +13,7 @@ ws.on('message', (bytes) => {
     ws.send(
       JSON.stringify({
         type: 'subscribe',
-        topics: ['metadata', 'status', 'quality', 'alpha', 'ssvep', 'marker', 'command'],
+        topics: ['metadata', 'status', 'quality', 'alpha', 'ssvep', 'marker'],
         channels: [1],
         ssvepFrequencyHz: 30,
       }),

@@ -1,10 +1,10 @@
 # 开源文明 BCI-001 本机开发接口 · v1
 
-这是 0.1.14 的实验接口：允许自己的 Python / Node.js 程序读取脑电及描述性特征，写入实验标记。不提供思想、专注度、运动想象或 SSVEP 目标分类结果。
+本机实验接口：允许自己的 Python / Node.js 程序读取脑电及描述性特征，写入实验标记。不提供思想、专注度或任何分类结果。
 
 ## 五分钟接入
 
-1. 打开 开源文明 BCI-001，连接设备，或选择「进入演示」。
+1. 打开 开源文明 BCI-001，连接设备（开发时可用 `npm start -- --demo` 连接模拟设备）。
 2. 打开「开发者工作台」，点击「开启本机接口」，点击「复制接入密钥」。
 3. 在自己可写的实验目录复制本文件夹，打开 PowerShell。不要把密钥写入代码仓库。
 4. Python 示例：安装 `python -m pip install -r requirements.txt`，运行 `python example.py`，按提示粘贴密钥（输入时不显示）。
@@ -54,9 +54,6 @@
 | waves | 与 eeg 同步，每条最多 250 点；channels、broadband（1–40 Hz，去 50 Hz 工频）、alpha（8–13 Hz 带通，8/13 Hz 为 −3 dB 边界）、alphaAmplitude（α 最近 0.5 秒幅度包络）、timestamps、receivedSampleStart、settled（滤波约 2 秒后稳定）；实时因果滤波，有少量延迟 |
 | ssvep | targetFrequencyHz、windowEndTimestamp、windowSeconds；各通道 channel、valid、reason、snrDb；只表示谱比，不是目标识别或置信度 |
 | marker / marker_ack | id、label、clientName、receivedAtMs、clientTimestampMs、timing、lastReceivedSampleIndex、streamId |
-| decoder | 识别器每个窗口一条（约 4 次/秒，仅在应用启动识别后）：kind=`decoder`，scores（各目标分数，**不是概率**）、nullMax（对照频率最高分）、best、margin、state（idle / candidate / selected / cooldown / calibrating）、progress、t（窗口最后一个样本的 BrainFlow 时间戳）；空闲校准结束时 kind=`decoder-calibration`，含 threshold、windows |
-| control | 「控制」功能的统一事件：method（`eye` 眼电 / `jaw` 肌电 / `ssvep`）、action（blink、double-blink、left、right、clench、target-1…）、t（动作开始的样本时间戳）、strength（眼电 / 肌电为个人门槛的倍数，SSVEP 为领先幅度；都不是概率）、label。**眼电和肌电不是脑电** |
-| command | 指令层的离散选择：action=`select`、target（目标序号）、label、t、margin。同一次注视只触发一次，之后有冷却期；没有 command 表示"没有明确目标"，不代表取消 |
 
 脑电原始样本是 BrainFlow 解码、按增益缩放后的 µV，未经过本应用频谱滤波，不是 ADC 整数。每条最多 250 个样本。receivedSampleStart 只统计已收到的数据，不能说明中间没有漏样本。sampleNumbers 的计数方式随板型/传输方式而异，256 回绕；需要结合时间戳、采样率及设备协议判断，不应仅据序号计算精确丢包率。
 
@@ -66,7 +63,7 @@ BrainFlow 时间戳来自主机侧，不代表已经校准的硬件采样时钟�
 
 Alpha 使用最近连续 4 秒数据，2 秒 Hann 窗、50% 重叠、去均值和线性趋势，频率间隔 0.5 Hz；8–13 Hz 功率采用梯形积分，占比的分母为 1–40 Hz 总功率。约每秒输出 4 次，刚开始/断流后须重新积累窗口。
 
-SSVEP SNR = 10 log10（目标频率 ±0.5 Hz 范围的平均 PSD / 距目标 2–4 Hz 两侧范围的平均 PSD）。这与本应用 SSVEP 页的谱比定义一致。没有训练、基线归一化、谐波分类或目标选择解码。高 SNR 也可能来自伪迹。
+SSVEP SNR = 10 log10（目标频率 ±0.5 Hz 范围的平均 PSD / 距目标 2–4 Hz 两侧范围的平均 PSD）。没有训练、基线归一化、谐波分类或目标选择解码。高 SNR 也可能来自伪迹。
 
 平直/幅度异常或 Railed 异常时，通道特征 valid=false，数值为 null。reason 可为 flat、amplitude、near、railed、unknown、insufficient_spectrum。有效仅指当前检查没有发现这些问题，不等于信号来自大脑或接触已验证。
 
@@ -80,4 +77,4 @@ SSVEP SNR = 10 log10（目标频率 ±0.5 Hz 范围的平均 PSD / 距目标 2�
 
 ## 尚未包含
 
-SSVEP 识别器与指令层已提供 `decoder` / `command` 主题（算法与局限见 docs/recognition.md）；识别由应用内任务启动，外部程序目前只能订阅结果，不能启动或配置识别。识别器插件、运动想象等其他模型、精确采样标记与 LSL 等留待后续。当前 API 的 schema 已版本化；未来破坏性变更会采用新版本。
+识别和分类模型、精确采样标记与 LSL 等不在本接口中。当前 API 的 schema 已版本化；未来破坏性变更会采用新版本。

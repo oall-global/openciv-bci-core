@@ -323,8 +323,6 @@ app.whenReady().then(() => {
       return agentGuide({
         endpoint: developer.state().endpoint,
         token: developer.token,
-        tasks: [],
-        running: [],
       });
     }
     // opens the interface if needed
@@ -334,8 +332,6 @@ app.whenReady().then(() => {
         agentGuide({
           endpoint: developer.state().endpoint,
           token: developer.token,
-          tasks: [],
-          running: [],
         }),
       );
       return true;

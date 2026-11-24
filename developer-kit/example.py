@@ -33,7 +33,6 @@ async def main():
                                 "alpha",
                                 "ssvep",
                                 "marker",
-                                "command",
                             ],
                             channels=[1],
                             ssvepFrequencyHz=30,

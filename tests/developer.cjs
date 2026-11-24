@@ -111,48 +111,9 @@ async function connect(address, options) {
     b.ingest(alpha);
     assert.equal((await c.wait('alpha')).payload.channels[0].absoluteUv2, null);
     assert.equal((await c.wait('ssvep')).payload.channels[0].snrDb, null);
-    // Recognition topics are delivered only to subscribers.
-    const window = { type: 'decoder', epoch: 1, t: 101, scores: [0.2, 0.6], state: 'candidate' };
-    const select = { type: 'command', epoch: 1, action: 'select', target: 1, label: '否', t: 101 };
-    const before = c.events.length;
-    b.ingest(window);
-    b.ingest(select);
-    await delay(30);
-    assert.equal(c.events.length, before);
-    c.send({
-      type: 'subscribe',
-      topics: [
-        'metadata',
-        'status',
-        'quality',
-        'eeg',
-        'alpha',
-        'ssvep',
-        'marker',
-        'decoder',
-        'command',
-      ],
-      channels: [2, 16],
-      ssvepFrequencyHz: 30,
-    });
-    await c.wait('subscribed');
-    // Re-subscribing replays the current metadata, status and quality snapshot.
-    await c.wait('metadata');
-    await c.wait('status');
-    await c.wait('quality');
-    b.ingest(window);
-    b.ingest({ type: 'decoder-calibration', epoch: 1, t: 102, threshold: 0.4, windows: 120 });
-    b.ingest(select);
-    const decoded = await c.wait('decoder');
-    assert.deepEqual(decoded.payload.scores, [0.2, 0.6]);
-    assert.equal(decoded.payload.kind, 'decoder');
-    assert.equal((await c.wait('decoder')).payload.threshold, 0.4);
-    const chosen = await c.wait('command');
-    assert.equal(chosen.payload.label, '否');
-    assert.equal(chosen.payload.epoch, undefined);
-    b.ingest({ ...select, epoch: 99 });
-    await delay(30);
-    assert.equal(c.events.filter((e) => e.type === 'command').length, 0, 'other epoch dropped');
+    // Topics that do not exist here are refused.
+    c.send({ type: 'subscribe', topics: ['decoder'] });
+    assert.equal((await c.wait('error')).type, 'error');
     c.send({ type: 'marker', label: 'eyes_closed' });
     const marker = await c.wait('marker');
     assert.equal(marker.payload.timing, 'host_received_unaligned');
