@@ -178,7 +178,8 @@ const { _electron } = require('playwright'),
     await p.getByRole('heading', { name: '信号工作台' }).waitFor();
     await p.locator('.toast', { hasText: '正在连接设备…' }).waitFor();
     await p.locator('.cw-progress').waitFor({ state: 'hidden' });
-    await p.clock.pauseAt(new Date(await p.evaluate(() => Date.now() + 1000)));
+    // a margin for a busy machine: pausing at a time already past throws
+    await p.clock.pauseAt(new Date(await p.evaluate(() => Date.now() + 5000)));
     async function feed(ms, { demo = false, old = false } = {}) {
       for (let t = 0; t < ms; t += 250) {
         const at = await p.evaluate(() => Date.now() / 1000);
@@ -250,7 +251,8 @@ const { _electron } = require('playwright'),
     await app.evaluate(() => (global.setupFixture.failProbe = false));
     await p.getByRole('button', { name: '已连接热点，继续', exact: true }).click();
     await p.locator('.cw-progress').waitFor({ state: 'hidden' });
-    await p.clock.pauseAt(new Date(await p.evaluate(() => Date.now() + 1000)));
+    // a margin for a busy machine: pausing at a time already past throws
+    await p.clock.pauseAt(new Date(await p.evaluate(() => Date.now() + 5000)));
     await feed(5000);
     await p.locator('.toast', { hasText: '设备已连接，正在接收' }).waitFor();
     assert.equal((await p.evaluate(() => window.neuro.preferences())).connectionMode, 'direct');

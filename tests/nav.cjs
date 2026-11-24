@@ -5,14 +5,13 @@ async function go(page, name) {
   await page.locator('.sb .sb-nav').getByRole('button', { name, exact: true }).click();
 }
 
-// The window waits for the preferences; tests that navigate before connecting start as a user
-// who has connected a device before (a fresh profile opens on 设备).
+// A fresh profile shows only 设备 (no sidebar) until a device has been connected once: tests that
+// navigate before connecting start as a user who has connected a device before.
 async function setUp(page) {
   await page.waitForSelector('.shell');
   await page.waitForFunction(() => !!window.neuro);
-  await page.getByRole('button', { name: '开源文明 BCI-001 首页' }).waitFor();
   const onboarded = await page.evaluate(async () => (await window.neuro.preferences()).onboarded);
-  if (onboarded) return;
+  if (onboarded) return page.getByRole('button', { name: '开源文明 BCI-001 首页' }).waitFor();
   await page.evaluate(() => window.neuro.preferences({ onboarded: true }));
   await page.reload();
   await page.getByRole('button', { name: '开源文明 BCI-001 首页' }).waitFor();

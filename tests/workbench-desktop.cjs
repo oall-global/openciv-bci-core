@@ -30,13 +30,14 @@ const { _electron } = require('playwright'),
         await new Promise((r) => setTimeout(r, 100));
       await window.neuro.preferences({ onboarded: true, firstWear: true });
     });
-    await p.reload();
-    // channel rows are on the 实时脑电波 tab
+    // channel rows are on the 实时脑电波 tab (read when the workbench opens)
     await p.evaluate(() => localStorage.setItem('neurolink.sideTab', 'wave'));
+    await p.reload();
     await go(p, '信号工作台');
     await p.getByRole('heading', { name: '信号工作台' }).waitFor();
     // Default layout 主图: the digital brain in the middle, 16 channels on the right.
     await p.getByRole('button', { name: '主图', pressed: true }).waitFor();
+    await p.locator('.wbf-ch').nth(15).waitFor();
     assert.equal(await p.locator('.wbf-ch').count(), 16);
     // Not connected: the brain offers to connect a device.
     await p.getByRole('button', { name: '连接脑电设备' }).waitFor();
