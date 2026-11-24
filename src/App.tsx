@@ -244,11 +244,12 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [notice]);
   const streaming = status.status === 'streaming' && lastAge < 3500;
-  // until a device has been connected once (the wizard saves onboarded), the app stays on 设备
-  // whenever no device is streaming, as the full app's first run does
+  // until a device has been connected once (the wizard saves onboarded), only 设备, without the
+  // sidebar, as the full app's first run
+  const firstRun = prefsLoaded && !prefs.onboarded && !streaming;
   useEffect(() => {
-    if (prefsLoaded && !prefs.onboarded && !streaming) setPageValue('devices');
-  }, [prefsLoaded, prefs.onboarded, streaming]);
+    if (firstRun) setPageValue('devices');
+  }, [firstRun]);
   // 概念手册: opened from the menu, or from a 「?」 popup at one entry
   const [glossaryFocus, setGlossaryFocus] = useState<string | null>(null);
   // 片段播放 of a recording: 录制脑电 (moment) or a session
@@ -304,8 +305,10 @@ export default function App() {
   );
 
   return (
-    <div className="shell app2" key={montage}>
-      <Sidebar page={page} onHome={() => setPage('home')} onTool={setPage} />
+    <div className={`shell app2 ${firstRun || !prefsLoaded ? 'first-run' : ''}`} key={montage}>
+      {prefsLoaded && !firstRun && (
+        <Sidebar page={page} onHome={() => setPage('home')} onTool={setPage} />
+      )}
       {playing && (
         <MomentPlayer
           id={playing.id}
