@@ -1,0 +1,4 @@
+brainflow==5.19.0
+setuptools==80.9.0
+pyserial==3.5
+pyinstaller>=6.16,<7

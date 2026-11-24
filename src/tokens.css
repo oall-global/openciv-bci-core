@@ -1,0 +1,155 @@
+/* NeuroLink design language: type, text colors and accents (design/design-language.md).
+   Every stylesheet uses these tokens; `:root:root` wins over older :root declarations. */
+:root:root {
+  /* type */
+  --font: 'Microsoft YaHei UI', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', Consolas, 'Cascadia Mono', monospace;
+  --fs-caption: 12px; /* axis labels, tags, badges */
+  --fs-small: 13px; /* secondary text, hints, table cells */
+  --fs-body: 14px; /* body text, buttons, inputs */
+  --fs-emph: 15px; /* card titles, emphasised body */
+  --fs-section: 16px; /* section headings */
+  --fs-title: 18px; /* top bar title, dialog title */
+  --fs-page: 24px; /* page title */
+  --lh: 1.6;
+
+  /* text */
+  --ink: #1c2e26; /* primary text, headings */
+  --ink2: #43544b; /* body text */
+  --ink3: #66756c; /* secondary text, hints */
+  --ink4: #6a786f; /* captions, axis labels, disabled; ≥ 4.5:1 on white (WCAG 1.4.3) */
+
+  /* accents */
+  --accent: #2b6651;
+  --accent-soft: #e5eee8;
+  --mint: #57c6ae;
+  --warn: #7a4610;
+  --warn-soft: #fbf1e2;
+  --danger: #9b3a26;
+  --danger-soft: #fbefeb;
+
+  /* surfaces */
+  --bg: #f4f6f3;
+  --paper: #fff;
+  --raised: #fff;
+  --line: #e1e7df;
+  --line2: #edf1ec;
+  --surface-2: #f1f4f0; /* hover, inset wells, quiet chips */
+  --surface-3: #e4e9e3; /* pressed, tracks */
+  --accent-line: #b9d6c8;
+  --warn-line: #ecd3a8;
+  --danger-line: #efc4b9;
+  --info: #2f5c8f;
+  --info-soft: #e9f0f8;
+  --info-line: #c9d8ea;
+  --accent-fill: var(--accent); /* filled buttons and badges (white text) */
+  --focus: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+
+  /* shape and space (DESIGN.md) */
+  --r-s: 6px; /* chips, small controls */
+  --r-m: 10px; /* buttons, inputs, list rows */
+  --r-l: 14px; /* panels */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+
+  /* older names, kept pointing at the tokens */
+  --green: var(--accent);
+  --muted: var(--ink3);
+
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: var(--lh);
+  color: var(--ink);
+  background: var(--bg);
+}
+/* Dark theme (default; 设置 → 外观): same type, colours for a black background
+   (design/dark-theme). Status colours keep their meaning (green / amber / red). */
+:root:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ink: #e6eeea;
+  --ink2: #bfccc5;
+  --ink3: #9aa9a2;
+  --ink4: #83928b; /* ≥ 4.5:1 on --paper and --raised (#718079 was 4.4:1) */
+  --accent: #5fd3a4;
+  --accent-fill: #2b7a5c;
+  --accent-soft: #15302a;
+  --mint: #57c6ae;
+  --warn: #e7ae55;
+  --warn-soft: #2b2215;
+  --danger: #ef7e66;
+  --danger-soft: #2e1814;
+  --bg: #0a0d0c;
+  --paper: #111715;
+  --raised: #18201d;
+  --line: #232e2a;
+  --line2: #1a2320;
+  --surface-2: #161d1a;
+  --surface-3: #1e2723;
+  --accent-line: #24493b;
+  --warn-line: #4a3a1f;
+  --danger-line: #4d2a22;
+  --info: #8fb4e0;
+  --info-soft: #14202d;
+  --info-line: #2a3f57;
+  /* generated colours that need a hand-picked dark value */
+  --t-bg-c6cfc4: #3a4843; /* switch track (off) */
+}
+:root[data-theme='dark'] .app2 .switch i {
+  background: #e6eeea;
+}
+/* Illustrations drawn for a light page: inverted, hue kept. */
+:root[data-theme='dark'] .connection-illustration {
+  filter: invert(0.9) hue-rotate(180deg);
+}
+:root[data-theme='dark'] input,
+:root[data-theme='dark'] select,
+:root[data-theme='dark'] textarea {
+  background-color: var(--bg);
+  color: var(--ink);
+  border-color: var(--line);
+}
+:root[data-theme='dark'] * {
+  scrollbar-color: #2a3632 transparent;
+}
+body {
+  font-family: var(--font);
+  color: var(--ink);
+}
+h1 {
+  font-size: var(--fs-page);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+h2 {
+  font-weight: 700;
+}
+h3 {
+  font-weight: 700;
+}
+/* The small uppercase English labels above page titles are not part of the language. */
+.eyebrow {
+  display: none !important;
+}
+.cw-visual-label {
+  display: none !important;
+}
+/* Headings: one weight, and page titles one size, whatever page they come from. */
+.app2 h1,
+.app2 h2,
+.app2 h3 {
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+.app2 .content h1:not(.td-title) {
+  font-size: var(--fs-page) !important;
+  line-height: 1.4;
+}
+/* The workbench title sits in its toolbar at section size (design/home). */
+.app2 .content .wb-layout-bar h1 {
+  font-size: var(--fs-section) !important;
+}

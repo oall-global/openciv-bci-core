@@ -1,0 +1,6 @@
+<view class="viewfinder">
+  <camera wx:if="{{!fallback}}" class="camera" mode="normal" flash="off" frame-size="medium" binderror="onError" />
+  <camera wx:else class="camera" mode="scanCode" flash="off" bindscancode="onScanCode" binderror="onError" />
+  <view wx:if="{{!box}}" class="frame" />
+  <view wx:else class="found" style="left: {{box.left}}px; top: {{box.top}}px; width: {{box.width}}px; height: {{box.height}}px" />
+</view>

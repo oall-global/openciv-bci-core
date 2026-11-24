@@ -1,0 +1,21 @@
+@import '../../../styles/sheet.wxss';
+
+/* the networks the device sees */
+.nets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  max-height: 420rpx;
+  margin-top: 24rpx;
+  overflow-y: auto;
+}
+.net {
+  align-self: stretch;
+  padding: 20rpx 24rpx;
+  border-bottom: 1px solid #232e2a;
+  font-size: 28rpx;
+}
+.net.on {
+  color: #5fd3a4;
+}

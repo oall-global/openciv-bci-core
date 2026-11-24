@@ -1,0 +1,49 @@
+.share {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 24rpx 28rpx calc(32rpx + env(safe-area-inset-bottom));
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.label {
+  margin-top: 28rpx;
+  color: #9aa9a2;
+  font-size: 24rpx;
+}
+.field {
+  margin-top: 10rpx;
+  padding: 18rpx 22rpx;
+  border: 1px solid #232e2a;
+  border-radius: 14rpx;
+  background: #111715;
+}
+.field.small {
+  flex: 1;
+  margin: 0 0 0 20rpx;
+}
+.mark {
+  display: flex;
+  align-items: center;
+  margin-top: 12rpx;
+}
+.card-canvas {
+  display: block;
+  width: 100%;
+  height: calc((100vw - 56rpx) * 1.5);
+  border-radius: 16rpx;
+}
+.acts {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16rpx;
+}
+.link {
+  padding: 12rpx;
+  color: #9aa9a2;
+  font-size: 26rpx;
+}
+.empty {
+  padding-top: 200rpx;
+}

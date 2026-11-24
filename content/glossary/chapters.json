@@ -1,0 +1,89 @@
+[
+  {
+    "id": "bci",
+    "title": "脑机接口是什么",
+    "entries": ["bci", "eeg", "limits"]
+  },
+  {
+    "id": "kinds",
+    "title": "脑机接口的类型与原理",
+    "entries": [
+      "invasive",
+      "active-passive",
+      "pipeline",
+      "paradigms",
+      "dry-wet",
+      "modalities",
+      "history"
+    ]
+  },
+  {
+    "id": "anatomy",
+    "title": "脑区、功能与大脑结构",
+    "entries": [
+      "anatomy",
+      "region-frontal",
+      "region-motor",
+      "region-somatosensory",
+      "region-parietal",
+      "region-temporal",
+      "region-occipital",
+      "region-insula",
+      "region-cingulate",
+      "region-hippocampus",
+      "region-amygdala",
+      "region-basal-ganglia",
+      "region-thalamus",
+      "region-cerebellum",
+      "region-brainstem",
+      "region-callosum",
+      "neurons",
+      "volume-conduction"
+    ]
+  },
+  {
+    "id": "signal",
+    "title": "电极与信号",
+    "entries": ["electrodes", "channel", "reference", "raw", "sampling"]
+  },
+  {
+    "id": "rhythm",
+    "title": "脑波节律",
+    "entries": ["bands", "alpha", "baseline", "brainmap", "neural", "dominant"]
+  },
+  {
+    "id": "processing",
+    "title": "信号处理入门",
+    "entries": ["filtering", "spectrum-analysis", "power", "window"]
+  },
+  {
+    "id": "quality",
+    "title": "佩戴与信号质量",
+    "entries": ["contact", "wearing", "worn", "impedance", "rail", "mains", "floor", "artifact"]
+  },
+  {
+    "id": "experiment",
+    "title": "实验与数据规范",
+    "entries": ["experiment", "validation", "formats"]
+  },
+  {
+    "id": "data",
+    "title": "数据与隐私",
+    "entries": ["privacy", "moments"]
+  },
+  {
+    "id": "safety",
+    "title": "安全与伦理",
+    "entries": ["safety", "consent"]
+  },
+  {
+    "id": "faq",
+    "title": "常见问题",
+    "entries": ["alpha-faq", "mind-reading", "wear-faq"]
+  },
+  {
+    "id": "refs",
+    "title": "延伸阅读",
+    "entries": ["reading", "terminology"]
+  }
+]

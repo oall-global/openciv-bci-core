@@ -1,0 +1,13 @@
+{
+  "description": "开源文明 BCI-001 微信小程序：连接 OpenBCI Wi-Fi Shield（验证版）",
+  "appid": "wxfa070c17a2bc1d43",
+  "projectname": "openciv-bci001-wechat",
+  "compileType": "miniprogram",
+  "libVersion": "3.6.0",
+  "setting": {
+    "es6": false,
+    "enhance": false,
+    "minified": false,
+    "urlCheck": false
+  }
+}

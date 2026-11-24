@@ -1,0 +1,303 @@
+/* The add-accessory sheet (lamp/pages/add, bci/pages/add): Apple Home style, dark */
+page {
+  background: #0a0d0c;
+}
+.sheet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 48rpx 40rpx 64rpx;
+  color: #e6ebe8;
+}
+.title {
+  margin-top: 24rpx;
+  font-size: 44rpx;
+  font-weight: 600;
+  text-align: center;
+}
+.sub {
+  margin-top: 12rpx;
+  color: #93a19a;
+  font-size: 28rpx;
+  line-height: 1.6;
+  text-align: center;
+}
+.err {
+  margin-top: 16rpx;
+  color: #ef7e66;
+  font-size: 26rpx;
+}
+
+/* scanning */
+.viewfinder {
+  position: relative;
+  width: 600rpx;
+  height: 600rpx;
+  margin-top: 48rpx;
+  border-radius: 36rpx;
+  overflow: hidden;
+  background: #111715;
+}
+.camera {
+  width: 100%;
+  height: 100%;
+}
+.frame {
+  position: absolute;
+  inset: 90rpx;
+  border: 6rpx solid rgba(255, 255, 255, 0.85);
+  border-radius: 28rpx;
+}
+
+/* links and actions at the bottom */
+.links,
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 48rpx;
+}
+.link {
+  padding: 20rpx;
+  color: #5fd3b5;
+  font-size: 30rpx;
+}
+.link.dim {
+  color: #55635d;
+  font-size: 24rpx;
+}
+.primary {
+  width: 100% !important;
+  border-radius: 24rpx;
+  background: #23806f;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+/* the accessory: a lamp drawn in CSS */
+.bulb {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  margin-top: 64rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff6d8, #f4c86a 55%, #c98f2a);
+  box-shadow: 0 0 80rpx rgba(244, 200, 106, 0.45);
+}
+.bulb::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -34rpx;
+  width: 70rpx;
+  height: 40rpx;
+  margin-left: -35rpx;
+  border-radius: 0 0 14rpx 14rpx;
+  background: #8b968f;
+}
+.bulb.small {
+  width: 72rpx;
+  height: 72rpx;
+  margin-top: 0;
+  box-shadow: none;
+}
+.bulb.small::after {
+  bottom: -16rpx;
+  width: 32rpx;
+  height: 18rpx;
+  margin-left: -16rpx;
+}
+.bulb.off {
+  background: radial-gradient(circle at 40% 35%, #59625d, #353c39);
+  box-shadow: none;
+}
+.bulb.pulse {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* nearby accessories and the added tile */
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40rpx;
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 220rpx;
+  height: 220rpx;
+  box-sizing: border-box;
+  margin: 12rpx;
+  padding: 24rpx;
+  border-radius: 28rpx;
+  background: #18221f;
+}
+.tile.big {
+  width: 300rpx;
+  height: 300rpx;
+  margin-top: 64rpx;
+}
+.tile.lit {
+  background: #f1efe6;
+  color: #1a1f1d;
+}
+.tile-name {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.tile-state {
+  color: #93a19a;
+  font-size: 24rpx;
+}
+
+/* code, Wi-Fi, name */
+.code {
+  width: 100%;
+  height: 100rpx;
+  margin-top: 48rpx;
+  border-bottom: 2rpx solid #2c3a35;
+  font-size: 44rpx;
+  letter-spacing: 6rpx;
+  text-align: center;
+}
+.form {
+  width: 100%;
+  margin-top: 40rpx;
+}
+.field {
+  height: 92rpx;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+  padding: 0 24rpx;
+  border-radius: 20rpx;
+  background: #18221f;
+  font-size: 30rpx;
+}
+.field.center {
+  width: 100%;
+  margin-top: 40rpx;
+  text-align: center;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8rpx;
+}
+.chip {
+  margin: 10rpx;
+  padding: 12rpx 28rpx;
+  border-radius: 40rpx;
+  background: #18221f;
+  color: #93a19a;
+  font-size: 26rpx;
+}
+.chip.on {
+  background: #23806f;
+  color: #fff;
+}
+.steps {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 40rpx;
+  font-size: 30rpx;
+  line-height: 2.2;
+}
+.bulb + .title {
+  margin-top: 64rpx;
+}
+
+/* the BCI device: a cap (dome) with electrode dots */
+.cap {
+  position: relative;
+  width: 200rpx;
+  height: 110rpx;
+  margin-top: 80rpx;
+  border-radius: 110rpx 110rpx 18rpx 18rpx;
+  background: radial-gradient(circle at 50% 30%, #3fc7a4, #1d7a64 70%);
+  box-shadow: 0 0 80rpx rgba(63, 199, 164, 0.35);
+}
+.cap::before {
+  content: '';
+  position: absolute;
+  inset: 22rpx 34rpx 30rpx;
+  border-radius: 80rpx 80rpx 0 0;
+  background: radial-gradient(circle, #e6fff7 5rpx, transparent 6rpx) 0 0 / 34rpx 30rpx;
+  opacity: 0.85;
+}
+.cap.off {
+  background: radial-gradient(circle at 50% 30%, #59625d, #353c39);
+  box-shadow: none;
+}
+.cap.pulse {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.cap + .title {
+  margin-top: 56rpx;
+}
+.cap.small-cap {
+  width: 96rpx;
+  height: 54rpx;
+  margin-top: 0;
+  box-shadow: none;
+}
+.cap.small-cap::before {
+  inset: 10rpx 16rpx 14rpx;
+  background-size: 18rpx 16rpx;
+}
+/* 配对 failed: what to check, one line each */
+.reasons {
+  width: 100%;
+  margin-top: 24rpx;
+  padding: 24rpx 28rpx;
+  box-sizing: border-box;
+  border-radius: 20rpx;
+  background: #111715;
+  text-align: left;
+}
+.reasons .sub {
+  display: block;
+  margin: 0 0 8rpx;
+  text-align: left;
+}
+.reason {
+  display: flex;
+  margin-top: 8rpx;
+  color: #bfccc5;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+.reason .dot {
+  margin-right: 12rpx;
+  color: #5fd3a4;
+}
+.err-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.help {
+  width: 36rpx;
+  height: 36rpx;
+  margin: 8rpx 0 0 12rpx;
+  border: 1px solid #5c6b65;
+  border-radius: 50%;
+  color: #9aa9a2;
+  font-size: 22rpx;
+  line-height: 36rpx;
+  text-align: center;
+}

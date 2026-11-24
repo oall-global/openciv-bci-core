@@ -1,0 +1,508 @@
+/* from 神经映像 (neural-view/src/styles.css): only the head scene, its tooltip and code flow */
+.h3d {
+  --blue: #65cfff;
+  --muted: #7893ac;
+  --line: #143048;
+  --amber: #ffcb72;
+  color: #c5e2f6;
+}
+.head-stage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.head-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+}
+.head-canvas:active {
+  cursor: grabbing;
+}
+.stage-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #81abc9;
+  pointer-events: none;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+.render-recovery {
+  max-width: 440px;
+  margin: 16px auto 0;
+  line-height: 1.8;
+  text-align: center;
+}
+.render-recovery p {
+  font-size: 12px;
+  color: #8dafc7;
+  letter-spacing: 0;
+}
+.render-recovery button {
+  padding: 10px 18px;
+  border: 1px solid #368dcc;
+  border-radius: 6px;
+  background: #0a4275;
+  color: #d0efff;
+}
+.render-recovery small {
+  display: block;
+  margin-top: 12px;
+  color: #789bb6;
+  font-size: var(--fs-caption);
+  letter-spacing: 0;
+}
+.channel-tooltip {
+  position: absolute;
+  z-index: 8;
+  left: 0;
+  top: 0;
+  width: 320px;
+  max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px);
+  overflow: auto;
+  visibility: hidden;
+  padding: 20px;
+  border: 1px solid #2b4b61;
+  border-top: 2px solid var(--region-color);
+  border-radius: 10px;
+  background: #061321f2;
+  box-shadow: 0 18px 70px #0009;
+  backdrop-filter: blur(16px);
+  color: #a9c9dd;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.tooltip-heading {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.tooltip-heading strong {
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--region-color);
+}
+.tooltip-heading span {
+  font-size: 13px;
+  color: #d8eaf5;
+}
+.tooltip-heading small {
+  display: block;
+  color: #668ba4;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.tooltip-tags {
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: var(--region-color);
+  margin-top: 12px;
+}
+.channel-tooltip p {
+  margin: 10px 0;
+  color: #9fbace;
+  font-size: var(--fs-caption);
+}
+.tooltip-reading {
+  border-top: 1px solid #1b384d;
+  border-bottom: 1px solid #1b384d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 0;
+  margin: 13px 0;
+  font-size: var(--fs-caption);
+}
+.tooltip-reading span small {
+  display: block;
+  color: #6a94ae;
+  font-size: 10px;
+}
+.tooltip-reading b {
+  font-size: 23px;
+  font-weight: 400;
+  color: var(--region-color);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.tooltip-reading b small {
+  font-size: var(--fs-caption);
+  color: #8eafc5;
+}
+.channel-tooltip .tooltip-note {
+  color: #7899af;
+  font-size: 10px;
+}
+.channel-tooltip footer {
+  font-size: 10px;
+  color: #a3c6db;
+  margin-top: 12px;
+}
+.stage-message {
+  flex-direction: column;
+  text-align: center;
+  gap: 12px;
+}
+.render-recovery button {
+  pointer-events: auto;
+}
+.home-view > .head-stage {
+  min-width: 0;
+  min-height: 0;
+}
+.code-flow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(ellipse 38% 48% at 50% 50%, transparent 57%, #000 100%);
+}
+@media (max-width: 700px) {
+  .home-view.with-observer > .head-stage {
+    height: 70dvh;
+    min-height: 420px;
+  }
+  .code-flow {
+    opacity: 0.5;
+  }
+}
+
+/* the electrode labels on the head (also from neural-view's styles.css) */
+.h3d .electrode {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 42px;
+  height: 42px;
+  margin: -21px 0 0 -21px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--region-color, #7fb4da);
+  font-size: 12px;
+  z-index: 3;
+}
+.h3d .electrode span {
+  position: absolute;
+  left: 27px;
+  top: 1px;
+  text-shadow:
+    0 0 5px #03162c,
+    0 1px 5px #000;
+  letter-spacing: 0.5px;
+}
+.h3d .electrode:hover span,
+.h3d .electrode:focus-visible span {
+  color: #e1f8ff;
+}
+.h3d .electrode.selected {
+  color: #ffd27e;
+}
+
+/* the camera dialog (面部跟随), also from neural-view styles.css, scoped to the page */
+.h3d .icon-button {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #234257;
+  border-radius: 5px;
+  color: #9ac5e0;
+}
+.h3d .icon-button:hover,
+.h3d .icon-button.active {
+  background: #123753;
+  color: #e0f7ff;
+}
+.h3d .connection-dialog {
+  background: #081524;
+  color: #bedcee;
+  border: 1px solid #2a5573;
+  border-radius: 16px;
+  width: 470px;
+  max-width: calc(100vw - 32px);
+  padding: 29px;
+  box-shadow: 0 24px 100px #000a;
+}
+.h3d .connection-dialog::backdrop {
+  background: #0009;
+  backdrop-filter: blur(8px);
+}
+.h3d .dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.h3d .dialog-header span {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #649cbf;
+}
+.h3d .dialog-header h2 {
+  font-size: 22px;
+  margin: 10px 0 0;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.h3d .dialog-header .icon-button {
+  border: 0;
+}
+.h3d .connection-dialog > p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #7b9fb9;
+  margin: 22px 0;
+}
+.h3d .connection-dialog form > label {
+  display: block;
+  color: #9fbed4;
+  font-size: 12px;
+  margin: 18px 0;
+}
+.h3d .connection-dialog input {
+  display: block;
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  margin-top: 9px;
+  border: 1px solid #244762;
+  background: #040e1b;
+  border-radius: 6px;
+  color: #c5e0f4;
+  font-size: 12px;
+}
+.h3d .connection-dialog input::placeholder {
+  color: #43657e;
+}
+.h3d .primary-button {
+  height: 44px;
+  border: 1px solid #368dcc;
+  background: #0a4275;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #d0efff;
+  width: 100%;
+  font-size: 13px;
+}
+.h3d .primary-button:hover {
+  background: #125c96;
+}
+.h3d .camera-header {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.h3d .camera-button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font-size: var(--fs-caption);
+  color: #8eb6d1;
+  padding: 8px 0;
+}
+.h3d .camera-button.enabled {
+  color: #80dfc7;
+}
+.h3d .camera-quick-stop {
+  display: flex;
+  color: #739bb4;
+  padding: 7px;
+}
+.h3d .camera-quick-stop:hover {
+  color: #ffc78c;
+}
+.h3d .camera-dialog {
+  width: min(540px, calc(100vw - 32px));
+  max-height: 90dvh;
+  overflow: auto;
+}
+.h3d .camera-preview {
+  height: 220px;
+  position: relative;
+  border: 1px solid #23445e;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #020913;
+  margin: 20px 0;
+}
+.h3d .camera-preview video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.h3d .camera-preview > div {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  color: #6791af;
+  font-size: 12px;
+}
+.h3d .camera-state {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 12px;
+  background: #03101ee8;
+  color: #afcee5;
+  font-size: var(--fs-caption);
+}
+.h3d .camera-device {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  font-size: 12px;
+  color: #a6c3d8;
+}
+.h3d .camera-device select {
+  background: #0a1f31;
+  border: 1px solid #23445e;
+  border-radius: 5px;
+  padding: 8px;
+  color: #c6e4f6;
+  width: 65%;
+  min-width: 0;
+}
+.h3d .mirror-choice {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 15px 0;
+  color: #8eabc2;
+  font-size: 12px;
+}
+.h3d .camera-actions {
+  display: flex;
+  gap: 10px;
+}
+.h3d .camera-actions > .primary-button {
+  flex: 1;
+}
+.h3d .camera-stop {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid #35516b;
+  border-radius: 7px;
+  padding: 0 15px;
+  color: #a0bbd0;
+}
+.h3d .recenter-face {
+  font-size: 12px;
+  color: #85cfff;
+  padding: 14px 0 0;
+}
+.h3d .camera-demo {
+  margin: 21px 0 18px;
+  border-top: 1px solid #19354d;
+  padding-top: 17px;
+  font-size: 12px;
+  color: #7b9eb8;
+}
+.h3d .camera-demo summary {
+  cursor: pointer;
+}
+.h3d .camera-demo > div {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.h3d .camera-demo button {
+  background: #0e2b42;
+  border: 1px solid #1c4665;
+  border-radius: 6px;
+  padding: 7px 17px;
+}
+.h3d .camera-demo small {
+  display: block;
+  font-size: 10px;
+  margin-top: 10px;
+  color: #6b8ba5;
+}
+.h3d .camera-privacy {
+  display: block;
+  line-height: 1.8;
+  color: #6c8ba4;
+  font-size: 10px;
+}
+@media (max-width: 950px) {
+  .h3d .camera-button span {
+    display: none;
+  }
+  .h3d .camera-button {
+    padding: 8px 3px;
+  }
+}
+.h3d .code-flow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(ellipse 38% 48% at 50% 50%, transparent 57%, #000 100%);
+}
+@media (max-width: 700px) {
+  .h3d .code-flow {
+    opacity: 0.5;
+  }
+}
+.h3d .connection-dialog {
+  max-height: 90vh;
+  overflow: auto;
+}
+
+/* 佩戴 (NeuroLink): the electrodes in their contact colours (as ContactMap's CONTACT_COLORS) */
+.h3d .electrode.contact {
+  color: #3a4843;
+}
+.h3d .electrode.contact[data-contact='ok'] {
+  color: #5fd3a4;
+}
+.h3d .electrode.contact[data-contact='poor'] {
+  color: #e7ae55;
+}
+.h3d .electrode.contact[data-contact='off'] {
+  color: #ef7e66;
+}
+.h3d .electrode.contact span {
+  color: #e6efe9;
+  font-weight: 600;
+}
+/* the reference and ground marks: their names in white, red when most electrodes are off */
+.h3d .electrode.mark {
+  pointer-events: none;
+}
+.h3d .electrode.mark span {
+  left: 30px;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.h3d .electrode.mark.mark-alert span {
+  color: #ef7e66;
+}

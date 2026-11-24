@@ -1,0 +1,1 @@
+<canvas type="webgl" id="brain" class="brain" disable-scroll="{{true}}" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd" bindtouchcancel="onTouchEnd" />

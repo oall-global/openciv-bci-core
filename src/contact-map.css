@@ -1,0 +1,45 @@
+.cm-head {
+  flex-shrink: 0;
+  width: 340px;
+  height: 340px;
+}
+.cm-skull {
+  fill: var(--paper);
+  stroke: #2c3a35;
+  stroke-width: 2;
+}
+.cm-skull-line {
+  fill: none;
+  stroke: #2c3a35;
+  stroke-width: 2;
+}
+.cm-head text {
+  font: 9px var(--mono);
+  text-anchor: middle;
+  fill: var(--ink4);
+}
+.cm-head text.on {
+  fill: #0a0d0c;
+}
+.cm-head text.cm-dir {
+  font: 700 24px var(--sans, 'Microsoft YaHei UI', sans-serif);
+  fill: var(--ink2);
+}
+.cm-head text.cm-side {
+  font: 700 24px var(--sans, 'Microsoft YaHei UI', sans-serif);
+  fill: var(--ink3);
+}
+.cm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: var(--fs-small);
+  color: var(--ink3);
+}
+.cm-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 50%;
+}

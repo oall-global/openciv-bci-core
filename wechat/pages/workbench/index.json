@@ -1,0 +1,4 @@
+{
+  "navigationBarTitleText": "开源文明 BCI",
+  "usingComponents": { "brain3d": "/components/brain3d/index" }
+}

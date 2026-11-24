@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "添加脑机接口",
+  "navigationBarBackgroundColor": "#0a0d0c",
+  "usingComponents": { "scanner": "/components/scanner/index" }
+}

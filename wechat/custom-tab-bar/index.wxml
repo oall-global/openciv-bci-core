@@ -1,0 +1,6 @@
+<view wx:if="{{!hidden}}" class="bar">
+  <view wx:for="{{tabs}}" wx:key="path" class="tab {{selected === index ? 'on' : ''}}" data-i="{{index}}" bindtap="go">
+    <image class="icon" src="/assets/tab/{{item.icon}}-{{selected === index ? 'on' : 'off'}}.svg" />
+    <text>{{item.text}}</text>
+  </view>
+</view>

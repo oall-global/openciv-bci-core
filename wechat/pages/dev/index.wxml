@@ -1,0 +1,34 @@
+<view class="wrap">
+  <navigator wx:for="{{bcis}}" wx:key="mac" class="btn link">{{item.name}} · {{item.ip}}</navigator>
+  <navigator class="btn link" url="/bci/pages/add/index">添加脑机接口</navigator>
+  <view class="card">
+    <text class="h">设备热点</text>
+    <input class="field" placeholder="例如 OpenBCI-1A2B" value="{{ssid}}" bindinput="onSsid" />
+    <button class="btn" disabled="{{!ssid || running}}" bindtap="joinHotspot">连接设备热点</button>
+  </view>
+
+  <view class="card">
+    <text class="h">设备地址</text>
+    <input class="field" type="digit" value="{{ip}}" bindinput="onIp" disabled="{{running}}" />
+    <button wx:if="{{!running}}" class="btn primary" loading="{{busy}}" disabled="{{busy}}" bindtap="connect">连接设备</button>
+    <button wx:else class="btn" bindtap="stop">断开连接</button>
+  </view>
+
+  <view class="status">{{status}}</view>
+  <view wx:if="{{error}}" class="error">{{error}}</view>
+
+  <view wx:if="{{running}}" class="card">
+    <view class="stats">
+      <view><text class="n">{{rate}}</text><text class="l">样本/秒</text></view>
+      <view><text class="n">{{total}}</text><text class="l">样本总数</text></view>
+      <view><text class="n">{{gaps}}</text><text class="l">序号不连续</text></view>
+      <view><text class="n">{{dropped}}</text><text class="l">丢弃字节</text></view>
+    </view>
+    <view class="grid">
+      <view wx:for="{{channels}}" wx:key="name" class="ch">
+        <text class="l">{{item.name}}</text>
+        <text class="v">{{item.uv}} µV</text>
+      </view>
+    </view>
+  </view>
+</view>

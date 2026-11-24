@@ -1,0 +1,26 @@
+.group {
+  display: block;
+  margin: 40rpx 8rpx 12rpx;
+  color: #83928b;
+  font-size: 24rpx;
+}
+.list {
+  border: 1px solid #232e2a;
+  border-radius: 24rpx;
+  background: #111715;
+  overflow: hidden;
+}
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx;
+  border-bottom: 1px solid #232e2a;
+}
+.item:last-child {
+  border-bottom: none;
+}
+.chev {
+  color: #83928b;
+  font-size: 36rpx;
+}

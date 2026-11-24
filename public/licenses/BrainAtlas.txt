@@ -1,0 +1,27 @@
+Brain for Blender / Brain Atlas model attribution
+
+Original meshes: Anderson Winkler, Brainder.org
+https://brainder.org/research/brain-for-blender/
+GLB conversion/distribution: mpatricny / brain-for-web
+https://github.com/mpatricny/brain-for-web
+Retrieved model: https://brain-for-web-demo.vercel.app/models/brain-atlas.glb
+Retrieved on: 2026-09-21
+
+The brain model is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported.
+https://creativecommons.org/licenses/by-sa/3.0/
+https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+OpenCiv BCI-001 ships the original downloaded GLB. Runtime presentation modifications:
+mirrored hemisphere display, orientation/scale/centering, new material/lighting,
+and RMS-driven illumination with an illustrative channel ring and data particles.
+The model and these adapted model visualizations are offered under CC BY-SA 3.0.
+No endorsement by the original authors is implied.
+Channel-ring positions are not anatomical coordinates. Animation does not represent
+neural pathways, source localization, cognitive state or diagnosis.
+
+0.1.4 visual adaptation: emissive contour shader, digital scan lines and sampled point cloud; no solid diffuse material. Same CC BY-SA 3.0 license applies.
+
+2026-10-18 glossary anatomy view: reused original GLB, mirrored paired regions,
+retained the brainstem and corpus callosum once, region highlighting, diffuse
+lighting and translucent internal views. Same CC BY-SA 3.0 license applies.
+The teaching groups may cover only atlas subregions, as described in the UI.

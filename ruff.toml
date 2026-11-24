@@ -1,0 +1,2 @@
+line-length = 100
+extend-exclude = ["engine/build", "engine/dist", "engine/.venv", "work/rail-parity/decompiled"]

@@ -1,0 +1,27 @@
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1px solid #232e2a;
+  background: #0a0d0c;
+}
+.tab {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  padding: 12rpx 0 10rpx;
+  color: #83928b;
+  font-size: 20rpx;
+}
+.tab.on {
+  color: #5fd3a4;
+}
+.icon {
+  width: 44rpx;
+  height: 44rpx;
+  margin-bottom: 4rpx;
+}

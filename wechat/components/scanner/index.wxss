@@ -1,0 +1,36 @@
+.viewfinder {
+  position: relative;
+  width: 600rpx;
+  height: 600rpx;
+  margin-top: 48rpx;
+  border-radius: 36rpx;
+  overflow: hidden;
+  background: #111715;
+}
+.camera {
+  width: 100%;
+  height: 100%;
+}
+/* where to aim, until a code is seen */
+.frame {
+  position: absolute;
+  top: 90rpx;
+  left: 90rpx;
+  right: 90rpx;
+  bottom: 90rpx;
+  border: 6rpx solid rgba(255, 255, 255, 0.85);
+  border-radius: 28rpx;
+}
+/* the code found, following it (Apple Home's yellow frame) */
+.found {
+  position: absolute;
+  box-sizing: border-box;
+  border: 6rpx solid #ffd60a;
+  border-radius: 20rpx;
+  box-shadow: 0 0 24rpx rgba(255, 214, 10, 0.55);
+  transition:
+    left 0.12s,
+    top 0.12s,
+    width 0.12s,
+    height 0.12s;
+}

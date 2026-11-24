@@ -1,0 +1,29 @@
+/* macOS-only overrides. Shared styles retain the validated Windows layout. */
+html[data-platform='darwin'] .app2 main {
+  height: 100dvh;
+}
+html[data-platform='darwin'] .wbf-ch {
+  min-height: 26px;
+  flex-shrink: 0;
+  grid-template-columns: 8px 30px minmax(24px, 1fr) 6ch;
+}
+html[data-platform='darwin'] .wbf-ch em {
+  white-space: nowrap;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+html[data-platform='darwin'] .wbf.v-immersive,
+html[data-platform='darwin'] .wbf.v-cinema {
+  min-height: 600px;
+}
+html[data-platform='darwin'] .wbf.v-immersive .wbf-views-corner,
+html[data-platform='darwin'] .wbf.v-cinema .wbf-views-corner {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media (max-width: 1240px) {
+  html[data-platform='darwin'] .wbf-ch {
+    grid-template-columns: 8px 30px minmax(24px, 1fr) 6ch;
+  }
+}

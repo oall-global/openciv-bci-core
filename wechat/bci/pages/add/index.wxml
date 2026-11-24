@@ -1,0 +1,118 @@
+<view class="sheet">
+  <!-- 1 开机 -->
+  <block wx:if="{{step === 'power'}}">
+    <view class="cap" />
+    <text class="title">打开开源文明BCI</text>
+    <text class="sub">把电源开关推到最上方，指示灯亮起</text>
+    <view class="actions">
+      <button class="primary" bindtap="powered">已开机</button>
+      <text class="link" bindtap="showMore">更多选项…</text>
+    </view>
+  </block>
+
+  <!-- 1' 本地网络（iPhone） -->
+  <block wx:if="{{step === 'localnet'}}">
+    <view class="cap" />
+    <text class="title">允许访问本地网络</text>
+    <text wx:if="{{!denied}}" class="sub">接下来微信会请求访问本地网络，请选择「允许」</text>
+    <text wx:else class="sub">请在设置中打开微信的「本地网络」</text>
+    <view class="actions">
+      <button class="primary" bindtap="allowLocal">{{denied ? '前往设置' : '继续'}}</button>
+      <text wx:if="{{denied}}" class="link" bindtap="powered">已打开</text>
+    </view>
+  </block>
+
+  <block wx:if="{{step === 'finding'}}">
+    <view class="cap pulse" />
+    <text class="title">正在寻找开源文明BCI…</text>
+  </block>
+
+  <!-- 1' 扫描标签（iPhone，或附近没有找到） -->
+  <block wx:if="{{step === 'scan'}}">
+    <text class="title">添加脑机接口</text>
+    <text class="sub">扫描设备卡上的二维码</text>
+    <scanner id="scanner" bind:code="onScanCode" bind:error="onCameraError" />
+    <view class="links">
+      <text class="link" bindtap="showMore">更多选项…</text>
+    </view>
+  </block>
+
+  <block wx:if="{{step === 'more'}}">
+    <view class="cap" />
+    <text class="title">更多选项</text>
+    <view class="links">
+      <text class="link" bindtap="enterHotspot">输入设备序列号</text>
+      <text class="link" bindtap="backToStart">返回</text>
+    </view>
+  </block>
+
+  <block wx:if="{{step === 'hotspot'}}">
+    <view class="cap" />
+    <text class="title">输入设备序列号</text>
+    <text class="sub">印在设备卡上</text>
+    <view class="form">
+      <input class="field" placeholder="例如 OCBCI01010100002" value="{{hotspot}}" bindinput="onHotspot" focus="{{step === 'hotspot'}}" cursor="{{hotspot.length}}" />
+    </view>
+    <view class="actions">
+      <button class="primary" disabled="{{hotspot.length <= 5}}" bindtap="join">连接</button>
+      <text class="link" bindtap="backToStart">取消</text>
+    </view>
+  </block>
+
+  <!-- 2 Wi-Fi -->
+  <block wx:if="{{step === 'wifi'}}">
+    <view class="cap" />
+    <text class="title">连接到 Wi-Fi</text>
+    <text wx:if="{{!showList}}" class="sub">开源文明BCI将加入「{{ssid}}」</text>
+    <text wx:else class="sub">开源文明BCI只支持 2.4 GHz 网络</text>
+    <view wx:if="{{showList}}" class="nets">
+      <view wx:for="{{networks}}" wx:key="ssid" class="net {{ssid === item.ssid ? 'on' : ''}}" data-ssid="{{item.ssid}}" bindtap="pickNetwork">
+        <text>{{item.ssid}}</text>
+      </view>
+      <text class="link" bindtap="scan">{{scanning ? '正在扫描…' : '重新扫描'}}</text>
+    </view>
+    <view class="form">
+      <input wx:if="{{showList}}" class="field" placeholder="网络名称" value="{{ssid}}" bindinput="onSsid" />
+      <input class="field" password placeholder="Wi-Fi 密码" value="{{password}}" bindinput="onPassword" />
+    </view>
+    <view class="actions">
+      <button class="primary" disabled="{{!ssid}}" bindtap="add">继续</button>
+      <text class="link" bindtap="finish">取消</text>
+    </view>
+  </block>
+
+  <!-- 3 配对中 -->
+  <block wx:if="{{step === 'adding'}}">
+    <view class="cap pulse" />
+    <text class="title">正在配对…</text>
+    <text class="sub">{{stage}}</text>
+  </block>
+
+  <block wx:if="{{step === 'error'}}">
+    <view class="cap off" />
+    <text class="title">{{errorTitle || '配对未完成'}}</text>
+    <view class="err-line"><text class="sub err">{{error}}</text><text wx:if="{{blocked}}" class="help" bindtap="whyBlocked">?</text></view>
+    <view wx:if="{{reasons.length}}" class="reasons">
+      <text class="sub">请检查：</text>
+      <view wx:for="{{reasons}}" wx:key="*this" class="reason"><text class="dot">·</text><text>{{item}}</text></view>
+    </view>
+    <view class="actions">
+      <text wx:if="{{errorTitle}}" class="sub dim">先长按开源文明BCI的按键 3 秒</text>
+      <button class="primary" bindtap="retry">{{blocked ? '换一个 Wi-Fi' : '重试'}}</button>
+      <text class="link" bindtap="finish">返回</text>
+    </view>
+  </block>
+
+  <!-- 4 配对成功 -->
+  <block wx:if="{{step === 'done'}}">
+    <text class="title">配对成功</text>
+    <view class="tile big lit">
+      <view class="cap small-cap" />
+      <text class="tile-name">{{name}}</text>
+      <text class="tile-state">在线 · {{device.channels || 16}} 通道</text>
+    </view>
+    <view class="actions">
+      <button class="primary" bindtap="wear">完成</button>
+    </view>
+  </block>
+</view>

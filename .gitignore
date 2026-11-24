@@ -1,0 +1,21 @@
+node_modules/
+dist/
+release/
+engine/.venv/
+engine/build/
+engine/dist/
+__pycache__/
+test-results/
+.claude/
+
+# Local tools and system files
+--remote-debugging-port=0/
+*.log
+.env
+.env.*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+.local-backup/

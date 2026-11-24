@@ -1,0 +1,121 @@
+<view class="wb">
+  <view class="top">
+    <view />
+    <view class="pills">
+      <text wx:if="{{connected}}" class="pill" bindtap="openContact">佩戴 {{worn}}/16</text>
+      <text class="pill {{connected ? 'on' : ''}}"><text class="dot" />{{status}}</text>
+    </view>
+  </view>
+
+  <!-- not connected: one action -->
+  <view wx:if="{{!connected}}" class="empty">
+    <view class="ring {{connecting ? 'pulse' : ''}}" />
+    <text class="title">{{connecting ? '正在连接设备…' : '连接脑机接口'}}</text>
+    <button wx:if="{{!connecting}}" class="primary" bindtap="addDevice">连接设备</button>
+  </view>
+
+  <block wx:else>
+    <view class="seg">
+      <text wx:for="{{panes}}" wx:key="id" class="seg-item {{pane === item.id ? 'on' : ''}}" data-p="{{item.id}}" bindtap="pickPane">{{item.name}}</text>
+    </view>
+
+    <view class="stage">
+      <!-- 大脑: 脑活动图谱 -->
+      <!-- (the canvas draws above anything laid over it: the legend and views go around it) -->
+      <view wx:if="{{pane === 'brain'}}" class="brain-pane">
+        <view class="legend">
+          <text class="band-now">{{bands[band].symbol}} {{bands[band].name}}</text>
+          <text class="dim small">0.5×</text>
+          <view class="ramp" />
+          <text class="dim small">3×</text>
+        </view>
+        <brain3d wx:if="{{!sheet}}" class="brain" values="{{ratios}}" selected="{{selected}}" view="{{view}}" active="{{shown}}" bind:pick="onPick" bind:turned="onTurned" bind:reset="onReset" />
+        <view wx:else class="brain" />
+        <view class="views">
+          <text wx:for="{{views}}" wx:key="id" class="chip {{view === item.id ? 'on' : ''}}" data-v="{{item.id}}" bindtap="pickView">{{item.name}}</text>
+        </view>
+      </view>
+
+      <!-- 脑电波: 实时脑电波 -->
+      <view wx:if="{{pane === 'wave'}}" class="waves">
+        <view class="wave-head"><text>µVrms</text><text class="dim">4 秒</text></view>
+        <view class="wave-body">
+          <view class="wave-names">
+            <view wx:for="{{channels}}" wx:key="name" class="wave-row {{selected === index ? 'on' : ''}}" data-i="{{index}}" bindtap="pick">
+              <view class="cdot" style="background: {{item.colour}}" /><text>{{item.name}}</text>
+            </view>
+          </view>
+          <canvas wx:if="{{!sheet}}" type="2d" id="waves" class="wave-canvas" bindtouchend="onWaveTap" />
+          <view wx:else class="wave-canvas" />
+          <view class="wave-values">
+            <view wx:for="{{channels}}" wx:key="name" class="wave-row mono {{selected === index ? 'on' : ''}}" data-i="{{index}}" bindtap="pick">{{item.uv}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 能量: 脑电能量 -->
+      <view wx:if="{{pane === 'bands'}}" class="energy">
+        <view class="wave-head"><text>全脑平均</text><text class="dim">相对基线</text></view>
+        <view wx:for="{{bandRows}}" wx:key="k" class="band-row {{band === item.k ? 'on' : ''}}">
+          <view class="band-name"><text class="sym">{{item.symbol}}</text><text>{{item.name}}</text><text class="dim small">{{item.range}}</text></view>
+          <text class="mono ratio">{{item.ratio}}</text>
+          <view class="bar"><view class="bar-fill" style="width: {{item.width}}%" /></view>
+        </view>
+        <view class="alpha-row">
+          <text class="dim">α 占 1–40 Hz 能量 · {{selectedName}}</text>
+          <text class="mono alpha-v">{{alphaShare}}<text class="small">%</text></text>
+        </view>
+        <canvas wx:if="{{!sheet}}" type="2d" id="psd" class="psd" />
+        <view wx:else class="psd" />
+      </view>
+    </view>
+
+    <!-- the timeline (the desktop's BrainTimeline, its phone layout) -->
+    <view class="tl">
+      <canvas wx:if="{{!sheet}}" type="2d" id="strip" class="strip" bindtouchstart="onStripStart" bindtouchmove="onStripMove" disable-scroll="{{true}}" />
+      <view wx:else class="strip" />
+      <view class="ticks"><text wx:for="{{ticks}}" wx:key="*this">{{item}}</text></view>
+      <view class="ctrl">
+        <text class="btn" bindtap="playPause">{{replaying && !playing ? '▶' : '❚❚'}}</text>
+        <text class="btn" data-n="-10" bindtap="stepBy">⏮</text>
+        <text class="btn" data-n="10" bindtap="stepBy">⏭</text>
+        <text class="time mono">{{replaying ? ago : '实时'}}</text>
+        <text class="live {{replaying ? '' : 'on'}}" bindtap="live"><text class="ldot" />{{replaying ? '回到实时' : '实时'}}</text>
+        <block wx:if="{{!recording}}">
+          <text class="rec-btn" bindtap="startRecord"><text class="rec-dot" />录制脑电</text>
+        </block>
+        <block wx:else>
+          <text class="rec-btn on {{canStop ? '' : 'off'}}" bindtap="stopRecord"><text class="sq" /><text class="mono">{{recordTime}}</text> 停止录制</text>
+          <text class="rec-btn mark {{markCount >= 6 ? 'off' : ''}}" bindtap="markMoment">⚑ 标记此刻{{markCount ? ' · ' + markCount : ''}}</text>
+        </block>
+      </view>
+    </view>
+  </block>
+
+  <!-- while recording: a frame round the screen and REC, as when filming it -->
+  <view wx:if="{{recording}}" class="rec-frame">
+    <text class="rec-badge"><text class="rec-dot" />REC <text class="b mono">{{recordTime}}</text> 正在录制脑电</text>
+  </view>
+
+  <!-- 佩戴检查 -->
+  <view wx:if="{{sheet}}" class="mask" bindtap="closeContact">
+    <view class="sheet" catchtap="noop">
+      <text class="title">佩戴检查</text>
+      <text class="sub">接触良好 {{good}} / 16</text>
+      <view class="head">
+        <view class="skull" />
+        <view wx:for="{{heads}}" wx:key="name" class="el" style="left: {{(item.x + 20) / 360 * 100}}%; top: {{(item.y + 30) / 380 * 100}}%; background: {{item.colour}}">
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+      <view class="legend2">
+        <text><text class="cdot" style="background:#5fd3a4" />良好</text>
+        <text><text class="cdot" style="background:#e7ae55" />一般</text>
+        <text><text class="cdot" style="background:#ef7e66" />需调整</text>
+        <text><text class="cdot" style="background:#3a4843" />未接触</text>
+      </view>
+      <view wx:for="{{adjust}}" wx:key="*this" class="adjust">{{item}}</view>
+      <button class="primary" bindtap="closeContact">完成</button>
+    </view>
+  </view>
+</view>

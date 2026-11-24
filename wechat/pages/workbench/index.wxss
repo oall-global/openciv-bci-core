@@ -1,0 +1,431 @@
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+.pills {
+  display: flex;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 160rpx 40rpx 0;
+}
+.ring {
+  width: 220rpx;
+  height: 220rpx;
+  border: 6rpx solid #2b7a5c;
+  border-radius: 50%;
+  box-shadow: 0 0 80rpx rgba(95, 211, 164, 0.25);
+}
+.ring.pulse {
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* 主图: one column filling the screen above the tab bar */
+.wb {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 24rpx 28rpx calc(140rpx + env(safe-area-inset-bottom));
+}
+.wb .top {
+  margin-bottom: 16rpx;
+}
+.cdot {
+  display: inline-block;
+  flex: none;
+  width: 14rpx;
+  height: 14rpx;
+  margin-right: 10rpx;
+  border-radius: 50%;
+}
+.small {
+  font-size: 20rpx;
+}
+
+/* 大脑 · 脑电波 · 能量 */
+.seg {
+  display: flex;
+  padding: 6rpx;
+  border: 1px solid #232e2a;
+  border-radius: 18rpx;
+  background: #111715;
+}
+.seg-item {
+  flex: 1;
+  padding: 10rpx 0;
+  border-radius: 14rpx;
+  color: #9aa9a2;
+  font-size: 26rpx;
+  text-align: center;
+}
+.seg-item.on {
+  background: #18201d;
+  color: #e6eeea;
+  font-weight: 700;
+}
+.stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin-top: 16rpx;
+  border: 1px solid #232e2a;
+  border-radius: 24rpx;
+  background: #0a0d0c;
+  overflow: hidden;
+}
+
+/* 大脑 */
+.brain-pane {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.brain {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+.legend {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx 0;
+  color: #bfccc5;
+  font-size: 22rpx;
+}
+.band-now {
+  margin-right: 16rpx;
+  font-weight: 700;
+}
+.ramp {
+  width: 200rpx;
+  height: 10rpx;
+  margin: 0 10rpx;
+  border-radius: 5rpx;
+  /* the brain's palette (components/brain3d) */
+  background: linear-gradient(
+    90deg,
+    #0a2d37 0%,
+    #0e404c 14%,
+    #32a0a5 35%,
+    #f0aa3c 55%,
+    #fff5d2 75%
+  );
+}
+.views {
+  display: flex;
+  justify-content: center;
+  padding: 0 0 16rpx;
+}
+.chip {
+  margin: 0 6rpx;
+  padding: 6rpx 18rpx;
+  border: 1px solid #232e2a;
+  border-radius: 12rpx;
+  background: rgba(17, 23, 21, 0.85);
+  color: #9aa9a2;
+  font-size: 22rpx;
+}
+.chip.on {
+  border-color: #5fd3a4;
+  color: #e6eeea;
+}
+
+/* 脑电波 */
+.waves,
+.energy {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 16rpx 20rpx;
+}
+.wave-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+  color: #bfccc5;
+  font-size: 22rpx;
+}
+.wave-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.wave-names,
+.wave-values {
+  display: flex;
+  flex-direction: column;
+}
+.wave-names {
+  width: 96rpx;
+}
+.wave-values {
+  width: 76rpx;
+  text-align: right;
+}
+.wave-row {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  color: #bfccc5;
+  font-size: 22rpx;
+}
+.wave-values .wave-row {
+  justify-content: flex-end;
+  color: #9aa9a2;
+}
+.wave-row.on {
+  color: #5fd3a4;
+  font-weight: 700;
+}
+.wave-canvas {
+  flex: 1;
+  height: 100%;
+}
+
+/* 能量 */
+.band-row {
+  display: flex;
+  align-items: center;
+  margin-top: 12rpx;
+  padding: 18rpx 20rpx;
+  border: 1px solid #232e2a;
+  border-radius: 16rpx;
+  background: #111715;
+}
+.band-row.on {
+  border-color: #5fd3a4;
+}
+.band-name {
+  display: flex;
+  align-items: baseline;
+  width: 280rpx;
+}
+.band-name .sym {
+  width: 36rpx;
+  color: #5fd3a4;
+}
+.band-name .small {
+  margin-left: 12rpx;
+}
+.ratio {
+  width: 100rpx;
+  text-align: right;
+  font-weight: 700;
+}
+.bar {
+  flex: 1;
+  height: 10rpx;
+  margin-left: 20rpx;
+  border-radius: 5rpx;
+  background: #18201d;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 5rpx;
+  background: #5fd3a4;
+}
+.alpha-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 24rpx;
+  font-size: 22rpx;
+}
+.alpha-v {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+.psd {
+  flex: 1;
+  min-height: 120rpx;
+  width: 100%;
+  margin-top: 8rpx;
+}
+
+/* the timeline (src/shell/shell.css .brain-tl, .wbf-tl) and 录制脑电 (.rec-btn, .rec-frame) */
+.tl {
+  margin-top: 12rpx;
+}
+.strip {
+  display: block;
+  width: 100%;
+  height: 68rpx;
+}
+.ticks {
+  display: flex;
+  justify-content: space-between;
+  color: #6f7e77;
+  font-family: 'IBM Plex Mono', Menlo, Consolas, monospace;
+  font-size: 20rpx;
+}
+.ctrl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 8rpx;
+  color: #8fa198;
+  font-size: 22rpx;
+  white-space: nowrap;
+}
+.ctrl > text {
+  margin-right: 14rpx;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56rpx;
+  height: 48rpx;
+  border: 1px solid #2a3632;
+  border-radius: 10rpx;
+  color: #d8e2dd;
+  font-size: 20rpx;
+}
+.time {
+  min-width: 110rpx;
+  color: #e3ebe7;
+}
+.live,
+.rec-btn {
+  display: flex;
+  align-items: center;
+  padding: 6rpx 18rpx;
+  border: 1px solid #2a3632;
+  border-radius: 26rpx;
+  color: #d8e2dd;
+}
+.ldot,
+.rec-dot {
+  width: 14rpx;
+  height: 14rpx;
+  margin-right: 10rpx;
+  border-radius: 50%;
+  background: #6f7e77;
+}
+.live.on .ldot {
+  background: #5fd3a4; /* live = green; red is only for 录制脑电 */
+  box-shadow: 0 0 12rpx #5fd3a4;
+}
+.rec-dot {
+  background: #e5484d;
+}
+.rec-btn.on {
+  border-color: rgba(229, 72, 77, 0.7);
+  color: #ffb3b5;
+}
+.rec-btn.off {
+  opacity: 0.45;
+}
+.rec-btn .sq {
+  width: 16rpx;
+  height: 16rpx;
+  margin-right: 10rpx;
+  border-radius: 3rpx;
+  background: currentColor;
+}
+.rec-btn .mono {
+  margin-right: 8rpx;
+}
+.rec-btn.mark {
+  margin-top: 8rpx;
+}
+.rec-frame {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 90;
+  pointer-events: none;
+  border: 6rpx solid rgba(229, 72, 77, 0.85);
+  box-shadow: inset 0 0 48rpx rgba(229, 72, 77, 0.25);
+}
+.rec-badge {
+  position: absolute;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  padding: 10rpx 28rpx;
+  border: 1px solid rgba(229, 72, 77, 0.7);
+  border-radius: 999rpx;
+  background: rgba(20, 8, 9, 0.85);
+  color: #ffb3b5;
+  font-size: 22rpx;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.rec-badge .b {
+  margin: 0 10rpx;
+  color: #fff;
+  font-weight: 600;
+}
+.rec-badge .rec-dot {
+  animation: rec-pulse 1.2s ease-in-out infinite;
+}
+@keyframes rec-pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* 佩戴检查 */
+.head {
+  position: relative;
+  width: 540rpx;
+  height: 570rpx;
+  margin-top: 24rpx;
+}
+.skull {
+  position: absolute;
+  left: 9.7%;
+  top: 9.7%;
+  width: 83.3%;
+  height: 83.2%;
+  box-sizing: border-box;
+  border: 3rpx solid #43544b;
+  border-radius: 50%;
+}
+.el {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64rpx;
+  height: 64rpx;
+  margin: -32rpx 0 0 -32rpx;
+  border-radius: 50%;
+  color: #0a0d0c;
+  font-size: 18rpx;
+  font-weight: 700;
+}
+.legend2 {
+  display: flex;
+  justify-content: center;
+  margin-top: 16rpx;
+  color: #9aa9a2;
+  font-size: 22rpx;
+}
+.legend2 > text {
+  display: flex;
+  align-items: center;
+  margin: 0 12rpx;
+}
+.adjust {
+  align-self: stretch;
+  margin-top: 12rpx;
+  color: #e7ae55;
+  font-size: 24rpx;
+}

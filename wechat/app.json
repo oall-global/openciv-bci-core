@@ -1,0 +1,47 @@
+{
+  "pages": ["pages/workbench/index", "pages/data/index", "pages/settings/index", "pages/dev/index"],
+  "subpackages": [
+    {
+      "root": "bci",
+      "pages": ["pages/add/index"]
+    },
+    {
+      "root": "moment",
+      "pages": ["pages/card/index"]
+    }
+  ],
+  "window": {
+    "navigationBarTitleText": "开源文明 BCI",
+    "navigationBarBackgroundColor": "#0a0d0c",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0a0d0c",
+    "navigationStyle": "default"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于搜索附近的脑机接口设备热点"
+    }
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "custom": true,
+    "color": "#83928b",
+    "selectedColor": "#5fd3a4",
+    "backgroundColor": "#0a0d0c",
+    "list": [
+      {
+        "pagePath": "pages/workbench/index",
+        "text": "信号工作台"
+      },
+      {
+        "pagePath": "pages/data/index",
+        "text": "脑电数据库"
+      },
+      {
+        "pagePath": "pages/settings/index",
+        "text": "设置"
+      }
+    ]
+  }
+}

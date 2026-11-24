@@ -1,0 +1,234 @@
+[
+  {
+    "id": "frontal",
+    "title": "额叶与前额叶",
+    "en": "frontal and prefrontal cortex",
+    "meshes": [
+      "cortex-frontal",
+      "dlpfc",
+      "vmpfc",
+      "mpfc"
+    ],
+    "deep": false,
+    "location": "大脑前部，中央沟之前。",
+    "summary": "参与计划、工作记忆、目标维持与行为调节；不同前额叶分区承担不同侧重。",
+    "example": "记住一串数字并按规则倒序，需同时维持信息、选择步骤和抑制无关反应。",
+    "limit": "额头电极还很容易记录眼电，不能将前额颜色直接称为专注力。",
+    "note": "本图合并额叶残余网格及多个前额叶分区；运动皮层单列，不是完整脑叶分割。",
+    "color": "#53b8bb"
+  },
+  {
+    "id": "motor",
+    "title": "运动皮层",
+    "en": "motor cortex",
+    "meshes": [
+      "cortex-motor"
+    ],
+    "deep": false,
+    "location": "中央沟前方的额叶后部，主要运动区位于中央前回。",
+    "summary": "参与随意运动的组织与执行；身体部位在皮层中具有有序但重叠的表征。",
+    "example": "伸手拿杯子涉及动作目标、路线、肌肉协同与感觉反馈，不由一个点单独控制。",
+    "limit": "C3/C4 附近可研究感觉运动节律，头皮信号不能精确定位某块肌肉的指令。",
+    "note": "模型的运动皮层标签是教学分区，不区分所有运动相关亚区。",
+    "color": "#f0aa3c"
+  },
+  {
+    "id": "somatosensory",
+    "title": "体感皮层",
+    "en": "somatosensory cortex",
+    "meshes": [
+      "cortex-somatosensory"
+    ],
+    "deep": false,
+    "location": "中央沟后方、顶叶前部，主要体感区位于中央后回。",
+    "summary": "参与触觉、本体感觉等身体信息的加工，并与运动系统持续交换信息。",
+    "example": "闭眼时知道手臂位置，需要来自肌肉、关节和皮肤的感觉与脑内整合。",
+    "limit": "中央区 EEG 混合多个源，不能据一条通道区分某一次触觉来自哪里。",
+    "note": "图中只按现有体感网格显示，不包含全部体感通路。",
+    "color": "#87cfa1"
+  },
+  {
+    "id": "parietal",
+    "title": "顶叶、角回与颞顶联合区",
+    "en": "parietal cortex, angular gyrus and TPJ",
+    "meshes": [
+      "cortex-parietal",
+      "angular-gyrus",
+      "tpj"
+    ],
+    "deep": false,
+    "location": "大脑上后部，包含中央沟后方的联合皮层及与颞叶相邻区域。",
+    "summary": "参与空间注意、多感觉整合、身体表征；角回和颞顶联合区参与多个认知网络。",
+    "example": "在人群中寻找目标并把视线转向它，需要空间信息、注意和动作规划共同配合。",
+    "limit": "P3/P4 等位置不等于单独的顶叶信号，更不能把它们读成空间能力分数。",
+    "note": "本组包含角回与颞顶联合区；体感皮层单列，教学分组不等于严格脑叶边界。",
+    "color": "#b5a0e5"
+  },
+  {
+    "id": "temporal",
+    "title": "颞叶与听觉加工",
+    "en": "temporal cortex",
+    "meshes": [
+      "cortex-temporal"
+    ],
+    "deep": false,
+    "location": "大脑两侧、外侧沟下方，向内侧延伸至记忆相关结构附近。",
+    "summary": "参与听觉、语义、物体识别等过程；内侧颞叶的海马另有记忆作用。",
+    "example": "听懂一句话需要辨别声音、组合语义并联系记忆，涉及颞叶与额顶网络。",
+    "limit": "T7/T8 附近很容易混入颞肌活动，咬牙引起的高频增大不是听觉增强。",
+    "note": "这里高亮模型的颞叶外侧网格；海马与杏仁核在独立条目中显示。",
+    "color": "#ed9d87"
+  },
+  {
+    "id": "occipital",
+    "title": "枕叶与视觉皮层",
+    "en": "occipital and visual cortex",
+    "meshes": [
+      "cortex-occipital"
+    ],
+    "deep": false,
+    "location": "大脑后部，初级视觉皮层主要位于内侧距状沟周围。",
+    "summary": "参与视觉信息的早期加工，后续视觉识别与空间处理涉及其他脑叶。",
+    "example": "分辨一条边缘、看清方向，再认出一个杯子，需要多级视觉加工。",
+    "limit": "后部 α 和视觉诱发响应可以观察，但不能由 O1/O2 直接还原所见图像。",
+    "note": "高亮枕叶分区，不等同于精确的初级视觉皮层或视野定位图。",
+    "color": "#81b4e5"
+  },
+  {
+    "id": "insula",
+    "title": "岛叶",
+    "en": "insula",
+    "meshes": [
+      "anterior-insula"
+    ],
+    "deep": true,
+    "location": "外侧沟深处，被额、顶、颞部的盖部结构遮住。",
+    "summary": "参与身体内部感受、味觉及显著信息的整合，并与情绪和自主调节网络相连。",
+    "example": "注意到心跳或胃部感觉并判断是否需要行动，涉及岛叶与多个其他结构。",
+    "limit": "普通低密度头皮 EEG 无法把某一指标直接归给岛叶。",
+    "note": "当前模型只有前岛叶标签；高亮不覆盖整个岛叶。",
+    "color": "#d4bd83"
+  },
+  {
+    "id": "cingulate",
+    "title": "扣带皮层",
+    "en": "cingulate cortex",
+    "meshes": [
+      "dacc",
+      "pcc"
+    ],
+    "deep": true,
+    "location": "大脑半球内侧，沿胼胝体上方与周围分布。",
+    "summary": "不同部分参与行为监控、动机、自主调节、记忆及自我相关加工。",
+    "example": "发现某次反应与目标不一致并调整下一步，涉及扣带与额顶等网络。",
+    "limit": "前额或中线 EEG 成分不能直接证明扣带某个子区的活动。",
+    "note": "模型显示背侧前扣带与后扣带标签，并非整条扣带皮层。",
+    "color": "#91c7b7"
+  },
+  {
+    "id": "hippocampus",
+    "title": "海马",
+    "en": "hippocampus",
+    "meshes": [
+      "hippocampus"
+    ],
+    "deep": true,
+    "location": "内侧颞叶深部，左右各有相关结构。",
+    "summary": "参与情景记忆形成、关系记忆与空间情境表征，并与广泛皮层网络协作。",
+    "example": "回忆某次旅行发生在哪里、按什么顺序经历事情，需要记忆系统共同参与。",
+    "limit": "头皮 θ 不能直接被命名为海马 θ，普通记录无法据此读取记忆内容。",
+    "note": "高亮现有海马网格，不包含海马形成的全部相邻结构与微小分区。",
+    "color": "#e4a2c8"
+  },
+  {
+    "id": "amygdala",
+    "title": "杏仁核",
+    "en": "amygdala",
+    "meshes": [
+      "amygdala"
+    ],
+    "deep": true,
+    "location": "内侧颞叶、海马前方附近的核团群。",
+    "summary": "参与生物学意义、威胁与奖赏相关的学习及反应调节，不仅涉及恐惧。",
+    "example": "从经验中学会某个线索需要警惕或值得接近，涉及杏仁核与皮层及其他核团。",
+    "limit": "不能通过主图颜色判断某人正在害怕，也不能据头皮信号直接读取杏仁核活动。",
+    "note": "模型把杏仁核简化为整体，未显示内部各核团。",
+    "color": "#e4b77d"
+  },
+  {
+    "id": "basal-ganglia",
+    "title": "基底节与纹状体",
+    "en": "basal ganglia and striatum",
+    "meshes": [
+      "ventral-striatum",
+      "dorsal-striatum"
+    ],
+    "deep": true,
+    "location": "大脑半球深部，与皮层、丘脑形成多个并行回路。",
+    "summary": "参与动作选择、习惯与强化学习；不同回路也参与动机和认知过程。",
+    "example": "练习一套动作逐渐熟练，既需要基底节回路，也需要皮层和小脑系统。",
+    "limit": "普通头皮记录不能直接分离纹状体各部分，更不能读出多巴胺水平。",
+    "note": "当前模型只含背侧与腹侧纹状体，不代表完整基底节；未画全苍白球、黑质等结构。",
+    "color": "#a9b9e8"
+  },
+  {
+    "id": "thalamus",
+    "title": "丘脑",
+    "en": "thalamus",
+    "meshes": [
+      "thalamus"
+    ],
+    "deep": true,
+    "location": "间脑的成对结构，位于皮层下、脑干上方附近。",
+    "summary": "在感觉、运动及皮层间回路中传递和调节信息，并参与觉醒与节律过程。",
+    "example": "感官输入进入相关皮层的过程中，许多通路经过丘脑的特定核团。",
+    "limit": "α 的变化涉及网络，不等于直接测得丘脑活动；不能从单个头皮峰定位丘脑。",
+    "note": "模型将丘脑作为整体，不区分内部感觉、运动及联合核团。",
+    "color": "#b4ce80"
+  },
+  {
+    "id": "cerebellum",
+    "title": "小脑",
+    "en": "cerebellum",
+    "meshes": [
+      "cerebellum"
+    ],
+    "deep": false,
+    "location": "大脑后下方、脑干后方。",
+    "summary": "参与协调、时序、误差校正和运动学习，也参与部分认知网络。",
+    "example": "学习把球投到目标位置时，比较预期与实际结果并逐步修正动作。",
+    "limit": "后部头皮电极主要混合多种来源，不能把枕部 α 当成小脑活动。",
+    "note": "复用模型的小脑半侧并镜像展示，未分出全部小叶与深部核团。",
+    "color": "#72bbad"
+  },
+  {
+    "id": "brainstem",
+    "title": "脑干",
+    "en": "brainstem",
+    "meshes": [
+      "brainstem"
+    ],
+    "deep": true,
+    "location": "位于大脑与脊髓之间，小脑前方。",
+    "summary": "包含中脑、脑桥、延髓，参与觉醒、呼吸循环调节及多种感觉运动通路。",
+    "example": "呼吸节律与许多自动调节过程依赖脑干内多个网络和身体反馈。",
+    "limit": "当前 EEG 图与任务不是脑干功能检查，不能据此判断生命体征或脑干健康。",
+    "note": "现有脑干网格作为整体显示，不再镜像；不区分核团与传导束。",
+    "color": "#aaa7cd"
+  },
+  {
+    "id": "callosum",
+    "title": "胼胝体",
+    "en": "corpus callosum",
+    "meshes": [
+      "corpus-callosum"
+    ],
+    "deep": true,
+    "location": "左右大脑半球之间的主要连合白质束，内侧视图可见其弓形走向。",
+    "summary": "连接两侧皮层区域，支持跨半球信息整合；本身不是单独执行某种认知的皮层区。",
+    "example": "两手协作或整合两侧感觉信息，需要跨半球通信和各自皮层的共同参与。",
+    "limit": "左右通道相关不等于胼胝体传导强度，PLV 不能直接画出这条解剖连接。",
+    "note": "模型显示一条整体白质结构，不显示真实个体纤维走向；不再镜像。",
+    "color": "#cbd8d0"
+  }
+]

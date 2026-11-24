@@ -1,0 +1,19 @@
+<view class="page">
+  <view wx:if="{{!items.length}}" class="empty">
+    <text class="title">还没有脑电数据</text>
+  </view>
+  <view wx:for="{{items}}" wx:key="id" class="card rec" data-id="{{item.id}}" bindtap="open">
+    <view class="row">
+      <text class="h2">{{item.title}}</text>
+      <text class="mono dim">{{item.length}}</text>
+    </view>
+    <view class="row meta">
+      <text class="dim">{{item.when}} · {{item.quality}}</text>
+      <text class="dim mono">{{item.size}}</text>
+    </view>
+    <view class="acts">
+      <text class="act" data-id="{{item.id}}" catchtap="share">导出</text>
+      <text class="act danger" data-id="{{item.id}}" catchtap="remove">删除</text>
+    </view>
+  </view>
+</view>

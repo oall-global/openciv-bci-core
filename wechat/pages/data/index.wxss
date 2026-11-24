@@ -1,0 +1,26 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 240rpx;
+}
+.rec .meta {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+}
+.acts {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16rpx;
+}
+.act {
+  margin-left: 16rpx;
+  padding: 8rpx 28rpx;
+  border: 1px solid #232e2a;
+  border-radius: 30rpx;
+  color: #5fd3a4;
+  font-size: 24rpx;
+}
+.act.danger {
+  color: #ef7e66;
+}

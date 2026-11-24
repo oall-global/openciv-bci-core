@@ -1,0 +1,11 @@
+altgraph==0.17.5
+brainflow==5.19.0
+macholib==1.16.4
+numpy==2.5.3
+packaging==26.3
+pyinstaller==6.22.3
+pyinstaller-hooks-contrib==2026.8
+pyserial==3.5
+ruff==0.17.1
+setuptools==80.9.0
+wheel==0.48.0

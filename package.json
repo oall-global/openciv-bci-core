@@ -1,0 +1,106 @@
+{
+  "name": "openciv-bci-core",
+  "license": "MIT",
+  "version": "0.9.6",
+  "private": true,
+  "description": "开源文明 BCI-001 核心：16 通道脑电的采集、保存与信号处理",
+  "author": "开源文明科技（北京）有限公司",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "check:glossary": "node scripts/check-glossary.cjs",
+    "build": "tsc --noEmit && vite build",
+    "start": "electron .",
+    "start:mac": "node scripts/start-macos.cjs",
+    "install:mac": "node scripts/install-macos.cjs",
+    "start:demo": "node scripts/start-macos.cjs --demo",
+    "package": "npm run build && electron-builder --win nsis --x64",
+    "test:desktop": "node tests/desktop.cjs",
+    "format": "prettier --write . && engine\\.venv\\Scripts\\python.exe -m ruff format .",
+    "format:check": "prettier --check . && engine\\.venv\\Scripts\\python.exe -m ruff format --check .",
+    "test": "node scripts/run-tests.cjs",
+    "test:quick": "node scripts/run-tests.cjs --quick",
+    "test:changed": "node scripts/run-tests.cjs --changed",
+    "package:mac": "npm run build && electron-builder --mac dmg --arm64",
+    "build:wechat": "node scripts/wechat-lib.cjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.180.0",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@types/three": "^0.180.0",
+    "@vitejs/plugin-react": "^4.5.0",
+    "electron": "^41.0.0",
+    "electron-builder": "^26.0.0",
+    "jsqr": "^1.4.0",
+    "playwright": "^1.55.0",
+    "prettier": "^3.9.9",
+    "qrcode": "^1.5.4",
+    "typescript": "^5.8.0",
+    "vite": "^6.3.0"
+  },
+  "build": {
+    "appId": "com.openciv.bci001",
+    "productName": "OpenCiv BCI-001",
+    "executableName": "OpenCiv-BCI-001",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "assets/icon.png",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "LICENSE",
+        "to": "LICENSE.txt"
+      },
+      {
+        "from": "THIRD_PARTY_NOTICES.md",
+        "to": "THIRD_PARTY_NOTICES.md"
+      },
+      {
+        "from": "engine/dist/neurolink-engine",
+        "to": "engine"
+      },
+      {
+        "from": "developer-kit",
+        "to": "developer-kit"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "开源文明 BCI-001",
+      "artifactName": "OpenCiv-BCI-001-Setup-${version}.${ext}"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon-mac.png",
+      "category": "public.app-category.education",
+      "identity": null,
+      "artifactName": "OpenCiv-BCI-001-${version}-mac-${arch}.${ext}",
+      "extendInfo": {
+        "NSLocalNetworkUsageDescription": "用于通过 Wi-Fi 连接脑电设备。"
+      }
+    },
+    "dmg": {
+      "title": "开源文明 BCI-001"
+    }
+  }
+}
